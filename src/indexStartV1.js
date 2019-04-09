@@ -19,21 +19,44 @@ function init()
     // Add an onclick handler to all of the squares
     // The name attribute for all of the divs is square
     // Use the function handleClick to handle the event 
+    var square = document.getElementByName("square");
+
+    square.onclick = handleClick;
+    
 }
 
 function handleClick() {
 
     // Get the id from the square and put it in a variable
     // Remember that the id is an integer 0 - 8
+    var clicked = document.getElementById('square').id;
 
     // Set the element in the squares array to the player's symbol
     // Update the inner html for this square in the UI
     // Set the onclick handler for this square in the UI to an empty anonymous function or arrow function
     // Update the variable xIsNext
+    if (xIsNext) {
+        document.getElementById(clicked).innerHTML = 'X';
+        xIsNext = false;
+    }
+    else {
+        document.getElementById(clicked).innerHTML = 'Y';
+        xIsNext = true;
+    }
 
     // If calculateWinner returns true
     // highlight the winner and disable all of the squares
+        // highlight winner function indicates that all squares should be disabled within it, not doing it here as well - Katie
     // otherwise update the status in the UI to display the player
+    if (calculateWinner) {
+        highlightWinner();
+    }
+    else {
+        document.getElementById("status").innerHTML = 'Next Player: Y';
+        if (xIsNext) {
+            document.getElementById("status").innerHTML = 'Next Player: X';
+        }
+    }
 }
 
 function calculateWinner() {
@@ -71,3 +94,4 @@ function disableAll() {
 }
 
 // When the page has finished loading, call the function init    
+window.onload = init;
