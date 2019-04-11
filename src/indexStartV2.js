@@ -108,7 +108,7 @@ class TTT
             this.xIsNext = true;
         }
 
-        this.squares[clicked].onclick = null;
+        document.getElementById(clicked).onclick = null;
 
         if (this.calculateWinner()) {
             this.highlightWinner();
