@@ -27,6 +27,11 @@ class TTT
         ];
 
         this.init.bind(this);
+        this.calculateWinner.bind(this);
+        this.highlightWinner.bind(this);
+        this.disableAll.bind(this);
+
+        this.init();
     }
 
     /*
@@ -51,11 +56,34 @@ class TTT
         }
 
     }
+
+
+
     /*
         CalculateWinner
         -   use destructuring assingment to assign values to
             a b and c in one line
     */
+
+    calculateWinner() {
+        let lines = this.lines;
+        let squares = this.squares;
+        for (let i = 0; i < lines.length; i++) {
+            let a = lines[i][0];
+            let b = lines[i][1];
+            let c = lines[i][2];
+            if (squares[a] &&
+                squares[a] === squares[b] &&
+                squares[a] === squares[c]) {
+                this.winner = squares[a];
+                this.winningLine = lines[i];
+                return true;
+            }
+        }
+        this.winner = null;
+        this.winningLine = Array();
+        return false;
+    }
 
 
     /*
@@ -81,19 +109,44 @@ class TTT
             this.xIsNext = true;
         }
 
-        // If calculateWinner returns true
-        // highlight the winner and disable all of the squares
-        // highlight winner function indicates that all squares should be disabled within it, not doing it here as well - Katie
-        // otherwise update the status in the UI to display the player
-        if (calculateWinner()) {
-            highlightWinner();
-            disableAll();
+        if (this.calculateWinner()) {
+            this.highlightWinner();
+            this.disableAll();
+            document.write("I'm da weiner");
         }
         else {
             document.getElementById("status").innerHTML = 'Next Player: Y';
-            if (xIsNext) {
+            if (this.xIsNext) {
                 document.getElementById("status").innerHTML = 'Next Player: X';
             }
+        }
+    }
+
+    /*
+    Update the status in the UI to display the winner
+    Iterate through the winningLine array.  It contains the indices of the winning squares
+         get the next square using the current index in the winningLine array as the id
+         add the class red to the square
+    */
+    highlightWinner() {    
+        if (xIsNext) {
+            document.getElementById("status").innerHTML = 'Winner is: Y';
+        }
+        else {
+            document.getElementById("status").innerHTML = 'Winner is: X';
+        }
+
+        for (let i = 0; i < 3; i++) {
+            document.getElementById(winningLine[i]).className += ' red';
+        }   
+    }
+
+    disableAll() {
+
+        // Set the onclick handler for all squares to function that does nothing
+        // The id of the square is a number 0 - 8
+        for (let i = 0; i < 9; i++) {
+            this.squares[i].onclick = null;
         }
     }
 }

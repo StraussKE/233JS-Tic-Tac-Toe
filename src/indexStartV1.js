@@ -83,19 +83,24 @@ function calculateWinner() {
     return false;
 }
 
-//
+
 function highlightWinner() {
 
     // Update the status in the UI to display the winner
     // Iterate through the winningLine array.  It contains the indices of the winning squares
     //      get the next square using the current index in the winningLine array as the id
     //      add the class red to the square
-    // Disable all of the squares
-        // this is also the disable all function, which makes more sense to be to be a 
-        // part of the set of instructions performed once a winner has been determined - Katie
+    if (xIsNext) {
+        document.getElementById("status").innerHTML = 'Winner is: Y';
+    }
+    else {
+        document.getElementById("status").innerHTML = 'Winner is: X';
+    }
+
     for (let i = 0; i < 3; i++) {
         document.getElementById(winningLine[i]).className += ' red'; // I now understand how to do multiple classes and successfully use bootstrap
     }
+    
 }
 
 function disableAll() {
