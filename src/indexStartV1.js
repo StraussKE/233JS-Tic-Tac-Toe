@@ -19,9 +19,12 @@ function init()
     // Add an onclick handler to all of the squares
     // The name attribute for all of the divs is square
     // Use the function handleClick to handle the event 
-    var square = document.getElementByName("square");
 
-    square.onclick = handleClick;
+    var myBoard = document.getElementsByName("square");
+    squares = Array.from(myBoard);
+    for (let i = 0; i < 9; i++) {
+        squares[i].onclick = handleClick;
+    }
     
 }
 
@@ -29,18 +32,20 @@ function handleClick() {
 
     // Get the id from the square and put it in a variable
     // Remember that the id is an integer 0 - 8
-    var clicked = document.getElementById('square').id;
+    var clicked = this.id;
 
     // Set the element in the squares array to the player's symbol
     // Update the inner html for this square in the UI
     // Set the onclick handler for this square in the UI to an empty anonymous function or arrow function
     // Update the variable xIsNext
     if (xIsNext) {
-        document.getElementById(clicked).innerHTML = 'X';
+        this.innerHTML = 'X';
+        squares[clicked] = 'X';
         xIsNext = false;
     }
     else {
-        document.getElementById(clicked).innerHTML = 'Y';
+        this.innerHTML = 'Y';
+        squares[clicked] = 'Y';
         xIsNext = true;
     }
 
@@ -48,8 +53,9 @@ function handleClick() {
     // highlight the winner and disable all of the squares
         // highlight winner function indicates that all squares should be disabled within it, not doing it here as well - Katie
     // otherwise update the status in the UI to display the player
-    if (calculateWinner) {
+    if (calculateWinner()) {
         highlightWinner();
+        disableAll();
     }
     else {
         document.getElementById("status").innerHTML = 'Next Player: Y';
@@ -85,12 +91,20 @@ function highlightWinner() {
     //      get the next square using the current index in the winningLine array as the id
     //      add the class red to the square
     // Disable all of the squares
+        // this is also the disable all function, which makes more sense to be to be a 
+        // part of the set of instructions performed once a winner has been determined - Katie
+    for (let i = 0; i < 3; i++) {
+        document.getElementById(winningLine[i]).className += ' red'; // I now understand how to do multiple classes and successfully use bootstrap
+    }
 }
 
 function disableAll() {
 
     // Set the onclick handler for all squares to function that does nothing
     // The id of the square is a number 0 - 8
+    for (let i = 0; i < 9; i++) {
+        squares[i].onclick = null;
+    }
 }
 
 // When the page has finished loading, call the function init    
