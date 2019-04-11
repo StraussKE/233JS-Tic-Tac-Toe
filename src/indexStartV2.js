@@ -146,7 +146,7 @@ class TTT
         // Set the onclick handler for all squares to function that does nothing
         // The id of the square is a number 0 - 8
         for (let i = 0; i < 9; i++) {
-            this.squares[i].onclick = null;
+            document.getElementById(i).onclick = null;
         }
     }
 }
