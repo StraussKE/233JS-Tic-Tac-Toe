@@ -94,9 +94,8 @@ class TTT
         -   add a local variable to refer to the clicked square
             -   remember that squares have an integer id 0 - 8
     */
-    handleClick(i) {
+    handleClick(clicked) {
 
-        let clicked = i;
 
         if (this.xIsNext) {
             document.getElementById(clicked).innerHTML = 'X';
@@ -109,10 +108,11 @@ class TTT
             this.xIsNext = true;
         }
 
+        this.squares[clicked].onclick = null;
+
         if (this.calculateWinner()) {
             this.highlightWinner();
             this.disableAll();
-            document.write("I'm da weiner");
         }
         else {
             document.getElementById("status").innerHTML = 'Next Player: Y';
@@ -129,7 +129,7 @@ class TTT
          add the class red to the square
     */
     highlightWinner() {    
-        if (xIsNext) {
+        if (this.xIsNext) {
             document.getElementById("status").innerHTML = 'Winner is: Y';
         }
         else {
@@ -137,7 +137,7 @@ class TTT
         }
 
         for (let i = 0; i < 3; i++) {
-            document.getElementById(winningLine[i]).className += ' red';
+            document.getElementById(this.winningLine[i]).className += ' red';
         }   
     }
 

@@ -49,6 +49,8 @@ function handleClick() {
         xIsNext = true;
     }
 
+    this.onclick = null;
+
     // If calculateWinner returns true
     // highlight the winner and disable all of the squares
         // highlight winner function indicates that all squares should be disabled within it, not doing it here as well - Katie
