@@ -20,12 +20,11 @@ function init()
     // The name attribute for all of the divs is square
     // Use the function handleClick to handle the event 
 
-    var myBoard = document.getElementsByName("square");
-    squares = Array.from(myBoard);
-    for (let i = 0; i < 9; i++) {
+    var myBoard = document.getElementsByName("square");     // creates a list of square elements
+    squares = Array.from(myBoard);                          // converts list of square elements into array of pointers
+    for (let i = 0; i < 9; i++) {                           // loops through the array and adds onclick handler to each square
         squares[i].onclick = handleClick;
     }
-    
 }
 
 function handleClick() {
